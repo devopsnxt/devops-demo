@@ -1,6 +1,6 @@
-# Spring devops-demo Sample Application [![Build Status](https://travis-ci.org/spring-projects/spring-petclinic.png?branch=master)](https://travis-ci.org/spring-projects/spring-petclinic/)
+# Spring devops-demo Sample Application 
 
-## Running petclinic locally
+## Running devops-demo locally
 ```
 	git clone https://github.com/devopsnxt/devops-demo.git
 	cd devops-demo
@@ -9,7 +9,7 @@
 
 You can then access devops-demo here: http://localhost:8080/
 
-<img width="1042" alt="petclinic-screenshot" src="https://cloud.githubusercontent.com/assets/838318/19727082/2aee6d6c-9b8e-11e6-81fe-e889a5ddfded.png">
+<img width="1042" alt="devops-screenshot" src="https://cloud.githubusercontent.com/assets/838318/19727082/2aee6d6c-9b8e-11e6-81fe-e889a5ddfded.png">
 
 ## Database configuration
 
