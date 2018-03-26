@@ -15,4 +15,4 @@ url=$path/$version/$jar
 curl -u admin:password -o devops-demo.jar $url
 
 # Run the jar file in backgroud
-nohup java -jar devops-demo.jar & 2>/dev/null
+nohup java -jar devops-demo.jar >/dev/null 2>&1 & 
