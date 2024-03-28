@@ -5,7 +5,6 @@ on:
     tags:
       - 'qa-[0-9]+.[0-9]+.[0-9]+'
 
-on:
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
