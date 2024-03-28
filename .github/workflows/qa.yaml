@@ -19,13 +19,12 @@ on:
 
 jobs:
   BuildAndPushImageToECR:
-    name: Build and Push
+    name: Build qa
     runs-on: ubuntu-latest
     steps:
-        - name: Checkout
-          uses: actions/checkout@v2
-        - name: print
-          run: echo "deploy ${{ github.event.inputs.tag }}"
+      - name: Checkout
+        with:
+          ref: ${{ github.event.inputs.tag }}
 
 # on:
 #   workflow_dispatch:
