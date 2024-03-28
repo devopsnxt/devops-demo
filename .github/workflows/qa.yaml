@@ -1,61 +1,61 @@
-# name: Build and deploy user service to qa environment
-
-# on:
-#   push:
-#     tags:
-#       - 'qa-[0-9]+.[0-9]+.[0-9]+'
-#   workflow_dispatch:
-#     # Inputs the workflow accepts.
-#     inputs:
-#       Tag:
-#         # Friendly description to be shown in the UI instead of 'name'
-#         description: 'Enter the quality tag'
-#         # Default value if no value is explicitly provided
-#         default: 'qa-<version>'
-#         # Input has to be provided for the workflow to run
-#         required: true
-#         # The data type of the input
-#         type: string
-
-# jobs:
-#   BuildAndPushImageToECR:
-#     name: Build and Push
-#     runs-on: ubuntu-latest
-#     steps:
-#         - name: Checkout
-#           uses: actions/checkout@v2
-#         - name: Checkout
-#           run: echo "deploy ${{ inputs.Tag }}"
+name: Build and deploy user service to qa environment
 
 on:
+  push:
+    tags:
+      - 'qa-[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
+    # Inputs the workflow accepts.
     inputs:
-      logLevel:
-        description: 'Log level'
+      tag:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'Enter the quality tag'
+        # Default value if no value is explicitly provided
+        default: 'qa-<version>'
+        # Input has to be provided for the workflow to run
         required: true
-        default: 'warning'
-        type: choice
-        options:
-          - info
-          - warning
-          - debug
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true
-        type: boolean
-      tags:
-        description: 'Test scenario tags'
-        required: true
-        type: string
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
-        required: true
+        # The data type of the input
+        # type: string
 
 jobs:
-  print-tag:
+  BuildAndPushImageToECR:
+    name: Build and Push
     runs-on: ubuntu-latest
-    if:  ${{ inputs.print_tags }} 
     steps:
-      - name: Print the input tag to STDOUT
-        run: echo  The tags are ${{ inputs.tags }} 
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: Checkout
+          run: echo "deploy ${{ inputs.tag }}"
+
+# on:
+#   workflow_dispatch:
+#     inputs:
+#       logLevel:
+#         description: 'Log level'
+#         required: true
+#         default: 'warning'
+#         type: choice
+#         options:
+#           - info
+#           - warning
+#           - debug
+#       print_tags:
+#         description: 'True to print to STDOUT'
+#         required: true
+#         type: boolean
+#       tags:
+#         description: 'Test scenario tags'
+#         required: true
+#         type: string
+#       environment:
+#         description: 'Environment to run tests against'
+#         type: environment
+#         required: true
+
+# jobs:
+#   print-tag:
+#     runs-on: ubuntu-latest
+#     if:  ${{ inputs.print_tags }} 
+#     steps:
+#       - name: Print the input tag to STDOUT
+#         run: echo  The tags are ${{ inputs.tags }} 
