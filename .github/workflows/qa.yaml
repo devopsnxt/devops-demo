@@ -1,9 +1,9 @@
 name: Build and deploy user service to qa environment
 
 on:
-  push:
-    tags:
-      - 'qa-[0-9]+.[0-9]+.[0-9]+'
+  # push:
+  #   tags:
+  #     - 'qa-[0-9]+.[0-9]+.[0-9]+'
   workflow_dispatch:
     # Inputs the workflow accepts.
     inputs:
