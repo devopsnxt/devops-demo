@@ -1,0 +1,16 @@
+
+name: 'Build and Publish'
+
+on:
+  push:
+    branches:
+      - master
+  
+jobs:
+  deployToDevelop:
+    if: github.event.pull_request.merged == true
+    name: build and push
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        run: echo "deployed"
