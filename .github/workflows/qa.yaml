@@ -24,4 +24,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
         - name: Checkout
-          run: echo "deploy qa"
+          run: echo "deploy ${{ inputs.Tag }}"
