@@ -2,13 +2,12 @@
 name: 'Build and Publish'
 
 on:
- pull_request:
-   types:
-     - closed
+  push:
+    branches:
+      - master
   
 jobs:
   deployToDevelop:
-    if: github.event.pull_request.merged == true
     name: build and push
     runs-on: ubuntu-latest
     steps:
