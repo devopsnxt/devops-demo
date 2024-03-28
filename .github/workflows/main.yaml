@@ -1,15 +1,15 @@
 
-name: 'Build and Publish'
+# name: 'Build and Publish'
 
-on:
-  push:
-    branches:
-      - master
+# on:
+#   push:
+#     branches:
+#       - master
   
-jobs:
-  deployToDevelop:
-    name: build and push
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        run: echo "deployed"
+# jobs:
+#   deployToDevelop:
+#     name: build and push
+#     runs-on: ubuntu-latest
+#     steps:
+#       - name: Checkout
+#         run: echo "deployed"
