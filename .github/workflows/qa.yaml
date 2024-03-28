@@ -25,7 +25,7 @@ jobs:
         - name: Checkout
           uses: actions/checkout@v2
         - name: print
-          run: echo "deploy ${{ github.event.inputs.tag }}""
+          run: echo "deploy ${{ github.event.inputs.tag }}"
 
 # on:
 #   workflow_dispatch:
