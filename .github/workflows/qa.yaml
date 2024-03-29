@@ -30,16 +30,22 @@ jobs:
           ref: ${{ github.event.inputs.tag }}
       - name: build and tag
         run: echo "deployed ${{ github.event.inputs.tag }}"
+      - name: crate image tag repo variable
+        if: $(curl -L -s  ${{ env.URL_OPTIONS }}/QA_TAG | jq -r .message) == ''
+        run: curl -L -s  -X POST ${{ env.URL_OPTIONS }} -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}'
       - name: update image tag repo variable
-        run: >
-          STATUS=$(curl -L -s  ${{ env.URL_OPTIONS }}/QA_TAG | jq -r .message)
+        if: $(curl -L -s  ${{ env.URL_OPTIONS }}/QA_TAG | jq -r .message) == 'Already exists - Variable already exists'
+        run: curl -s -L -X PATCH  ${{ env.URL_OPTIONS }}/QA_TAG -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}'
 
-          create_tag_var() {
-            curl -L -s  -X POST ${{ env.URL_OPTIONS }} -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}'
-          }
+        # run: >
+        #   STATUS=$(curl -L -s  ${{ env.URL_OPTIONS }}/QA_TAG | jq -r .message)
 
-          update_tag_var() {
-            curl -s -L -X PATCH  ${{ env.URL_OPTIONS }}/QA_TAG -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}' 
-          }
+        #   create_tag_var() {
+        #     curl -L -s  -X POST ${{ env.URL_OPTIONS }} -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}'
+        #   }
 
-          if [[ $STATUS == "Already exists - Variable already exists" ]];then update_tag_var; else create_tag_var; fi
+        #   update_tag_var() {
+        #     curl -s -L -X PATCH  ${{ env.URL_OPTIONS }}/QA_TAG -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}' 
+        #   }
+
+        #   if [[ $STATUS == "Already exists - Variable already exists" ]];then update_tag_var; else create_tag_var; fi
