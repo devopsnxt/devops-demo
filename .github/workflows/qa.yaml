@@ -35,8 +35,14 @@ jobs:
         run: echo "deployed ${{ github.event.inputs.tag }}"
       - name: update image tag repo variable
         run: >
-          if [[ ${curl -L -s  ${{ env.URL_OPTIONS }}/QA_TAG | jq -r .message} == '' ]]; then 
+          STATUS=$(curl -L -s  ${{ env.URL_OPTIONS }}/QA_TAG | jq -r .message) || exit 0
+
+          create_tag_var() {
             curl -L -s  -X POST ${{ env.URL_OPTIONS }} -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}'
-          else
+          }
+
+          update_tag_var() {
             curl -s -L -X PATCH  ${{ env.URL_OPTIONS }}/QA_TAG -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}' 
-          fi
+          }
+
+          if [[ $STATUS == "Already exists - Variable already exists" ]];then update_tag_var; else create_tag_var; fi
