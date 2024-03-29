@@ -13,7 +13,7 @@ on:
         # Friendly description to be shown in the UI instead of 'name'
         description: 'Enter the quality tag'
         # Default value if no value is explicitly provided
-        default: 'qa-<version>'
+        default: 'qa-0.0.1'
         # Input has to be provided for the workflow to run
         required: true
         # The data type of the input
@@ -32,7 +32,7 @@ jobs:
         run: echo "deployed ${{ github.event.inputs.tag }}"
       - name: update image tag repo variable
         run: >
-          STATUS=$(curl -L -s  ${{ env.URL_OPTIONS }}/QA_TAG | jq -r .message) || exit 0
+          STATUS=$(curl -L -s  ${{ env.URL_OPTIONS }}/QA_TAG | jq -r .message)
 
           create_tag_var() {
             curl -L -s  -X POST ${{ env.URL_OPTIONS }} -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}'
