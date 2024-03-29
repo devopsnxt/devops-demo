@@ -33,11 +33,10 @@ jobs:
           ref: ${{ github.event.inputs.tag }}
       - name: build and tag
         run: echo "deployed ${{ github.event.inputs.tag }}"
-      - name: create image tag repo variable
-        if: ${{ `curl -L -s  ${{ env.URL_OPTIONS }}/QA_TAG | jq -r .message` == '' }}
-        run: |
-          curl -L -s  -X POST ${{ env.URL_OPTIONS }} -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}'
       - name: update image tag repo variable
-        if: ${{ `curl -L -s  ${{ env.URL_OPTIONS }}/QA_TAG | jq -r .message` == 'Already exists - Variable already exists' }}
-        run: |
-          curl -s -L -X PATCH  ${{ env.URL_OPTIONS }}/QA_TAG -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}' 
+        run: >
+          if [ `curl -L -s  ${{ env.URL_OPTIONS }}/QA_TAG | jq -r .message` == ''];then 
+            curl -L -s  -X POST ${{ env.URL_OPTIONS }} -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}'
+          else
+            curl -s -L -X PATCH  ${{ env.URL_OPTIONS }}/QA_TAG -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}' 
+          fi
