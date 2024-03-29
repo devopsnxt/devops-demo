@@ -35,7 +35,7 @@ jobs:
         run: echo "deployed ${{ github.event.inputs.tag }}"
       - name: update image tag repo variable
         run: >
-          if [ ${curl -L -s  ${{ env.URL_OPTIONS }}/QA_TAG | jq -r .message} == '']; then 
+          if [[ ${curl -L -s  ${{ env.URL_OPTIONS }}/QA_TAG | jq -r .message} == '' ]]; then 
             curl -L -s  -X POST ${{ env.URL_OPTIONS }} -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}'
           else
             curl -s -L -X PATCH  ${{ env.URL_OPTIONS }}/QA_TAG -d '{"name":"QA_TAG","value":"${{ github.event.inputs.tag }}"}' 
