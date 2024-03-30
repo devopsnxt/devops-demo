@@ -2,6 +2,7 @@ name: Build and deploy user service to qa environment
 
 env:
   VAR_TAG_NAME: 'QA_TAG'
+  REPO_NAME: $(basename ${{ github.repository }})
   URL_OPTIONS: '-H "Accept: application/vnd.github+json"  -H "Authorization: Bearer ${{secrets.VAR_READ_WRITE_TOKEN}}" -H "X-GitHub-Api-Version: 2022-11-28" $GITHUB_API_URL/repos/$GITHUB_REPOSITORY/actions/variables'
 on: 
   # push:
@@ -38,5 +39,5 @@ jobs:
         if: $(curl -L -s  ${{ env.URL_OPTIONS }}/${{ env.VAR_TAG_NAME }} | jq -r .message) == 'Already exists - Variable already exists'
         run: curl -s -L -X PATCH  ${{ env.URL_OPTIONS }}/${{ env.VAR_TAG_NAME }} -d '{"name":"${{ env.VAR_TAG_NAME }}","value":"${{ github.event.inputs.tag }}"}'
       - name: repo name
-        run: echo "REPOSITORY_NAME=${GITHUB_REPOSITORY#*/}"
+        run: echo "${{ env.REPO_NAME }}"
         # run: echo "Repo - $(basename ${{ github.repository }})"
