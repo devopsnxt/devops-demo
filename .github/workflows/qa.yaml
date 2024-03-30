@@ -37,3 +37,5 @@ jobs:
       - name: update image tag repo variable
         if: $(curl -L -s  ${{ env.URL_OPTIONS }}/${{ env.VAR_TAG_NAME }} | jq -r .message) == 'Already exists - Variable already exists'
         run: curl -s -L -X PATCH  ${{ env.URL_OPTIONS }}/${{ env.VAR_TAG_NAME }} -d '{"name":"${{ env.VAR_TAG_NAME }}","value":"${{ github.event.inputs.tag }}"}'
+      - name: repo name
+        run: echo "Repo: $(basename ${{ github.repository }})"
